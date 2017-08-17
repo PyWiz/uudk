@@ -1,0 +1,19 @@
+TARGETS = rsyslog uuidd lvm2-lvmetad open-vm-tools lvm2-lvmpolld lxd unattended-upgrades lxcfs killprocs apport apache2 single irqbalance postfix nagios3 nagios-nrpe-server atd mdadm dbus rsync cron ssh acpid snmpd plymouth rc.local ondemand
+INTERACTIVE = apache2
+apache2: rsyslog
+single: killprocs
+irqbalance: rsyslog
+postfix: rsyslog
+nagios3: rsyslog
+nagios-nrpe-server: rsyslog
+atd: rsyslog
+mdadm: rsyslog
+dbus: rsyslog
+rsync: rsyslog
+cron: rsyslog
+ssh: rsyslog
+acpid: rsyslog
+snmpd: rsyslog
+plymouth: irqbalance rsyslog uuidd apache2 lvm2-lvmetad postfix open-vm-tools nagios3 nagios-nrpe-server lvm2-lvmpolld lxd unattended-upgrades atd mdadm lxcfs dbus rsync cron ssh acpid apport snmpd
+rc.local: irqbalance rsyslog uuidd apache2 lvm2-lvmetad postfix open-vm-tools nagios3 nagios-nrpe-server lvm2-lvmpolld lxd unattended-upgrades atd mdadm lxcfs dbus rsync cron ssh acpid apport snmpd
+ondemand: irqbalance rsyslog uuidd apache2 lvm2-lvmetad postfix open-vm-tools nagios3 nagios-nrpe-server lvm2-lvmpolld lxd unattended-upgrades atd mdadm lxcfs dbus rsync cron ssh acpid apport snmpd

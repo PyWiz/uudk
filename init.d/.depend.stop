@@ -1,0 +1,15 @@
+TARGETS = apache-htcacheclean uuidd lvm2-lvmetad open-vm-tools lvm2-lvmpolld lxd unattended-upgrades lxcfs apache2 resolvconf ufw irqbalance postfix nagios3 nagios-nrpe-server atd mdadm snmpd plymouth open-iscsi urandom iscsid sendsigs rsyslog umountnfs.sh hwclock.sh rpcbind networking umountfs cryptdisks cryptdisks-early umountroot mdadm-waitidle halt reboot
+iscsid: open-iscsi
+sendsigs: irqbalance iscsid uuidd apache2 open-iscsi postfix open-vm-tools nagios3 nagios-nrpe-server lxd unattended-upgrades atd plymouth mdadm lxcfs apache-htcacheclean snmpd
+rsyslog: irqbalance sendsigs apache2 postfix nagios3 nagios-nrpe-server atd mdadm apache-htcacheclean snmpd
+umountnfs.sh: irqbalance rsyslog uuidd apache2 postfix open-vm-tools nagios3 nagios-nrpe-server lxd unattended-upgrades atd plymouth sendsigs lxcfs apache-htcacheclean snmpd
+hwclock.sh: rsyslog uuidd atd
+rpcbind: umountnfs.sh
+networking: iscsid apache2 umountnfs.sh open-iscsi rpcbind postfix nagios3 nagios-nrpe-server snmpd
+umountfs: irqbalance iscsid uuidd apache2 umountnfs.sh open-iscsi hwclock.sh lvm2-lvmetad urandom rpcbind postfix open-vm-tools nagios3 nagios-nrpe-server lvm2-lvmpolld lxd unattended-upgrades resolvconf atd plymouth networking mdadm lxcfs apache-htcacheclean snmpd
+cryptdisks: umountfs
+cryptdisks-early: cryptdisks umountfs
+umountroot: cryptdisks umountfs cryptdisks-early
+mdadm-waitidle: umountroot
+halt: umountroot mdadm-waitidle
+reboot: umountroot mdadm-waitidle
